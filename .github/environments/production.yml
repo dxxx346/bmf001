@@ -1,0 +1,81 @@
+# Production Environment Configuration
+# This file documents the required environment variables and secrets for production
+
+environment: production
+
+# Required Secrets (to be configured in GitHub Settings > Secrets and variables > Actions)
+required_secrets:
+  # Supabase Configuration
+  - NEXT_PUBLIC_SUPABASE_URL: "Your Supabase project URL"
+  - NEXT_PUBLIC_SUPABASE_ANON_KEY: "Your Supabase anonymous key"
+  - SUPABASE_SERVICE_ROLE_KEY: "Your Supabase service role key"
+  - SUPABASE_ACCESS_TOKEN: "Supabase CLI access token"
+  - SUPABASE_PRODUCTION_PROJECT_REF: "Production project reference ID"
+  - SUPABASE_PRODUCTION_DB_PASSWORD: "Production database password"
+  
+  # Vercel Deployment
+  - VERCEL_TOKEN: "Vercel deployment token"
+  - VERCEL_ORG_ID: "Vercel organization ID"
+  - VERCEL_PROJECT_ID: "Vercel project ID"
+  
+  # Payment Providers
+  - STRIPE_SECRET_KEY: "Stripe secret key for production"
+  - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "Stripe publishable key"
+  - STRIPE_WEBHOOK_SECRET: "Stripe webhook endpoint secret"
+  - YOOKASSA_SHOP_ID: "YooKassa shop ID"
+  - YOOKASSA_SECRET_KEY: "YooKassa secret key"
+  
+  # Redis
+  - REDIS_URL: "Redis connection URL"
+  
+  # Monitoring & Analytics
+  - SENTRY_DSN: "Sentry DSN for error tracking"
+  - SENTRY_ORG: "Sentry organization"
+  - SENTRY_PROJECT: "Sentry project"
+  - SENTRY_AUTH_TOKEN: "Sentry authentication token"
+  
+  # Security Scanning
+  - SNYK_TOKEN: "Snyk security scanning token"
+  
+  # Deployment URLs
+  - PRODUCTION_URL: "https://your-production-domain.com"
+  - STAGING_URL: "https://your-staging-domain.com"
+  - PREVIEW_URL: "https://your-preview-domain.com"
+
+# Environment Variables
+environment_variables:
+  NODE_ENV: "production"
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "info"
+
+# Protection Rules
+protection_rules:
+  required_reviewers: 2
+  require_codeowner_reviews: true
+  required_status_checks:
+    - "CI/CD Pipeline / quality-checks"
+    - "CI/CD Pipeline / security-scan"
+    - "CI/CD Pipeline / database-validation"
+  enforce_admins: true
+  allow_force_pushes: false
+  allow_deletions: false
+
+# Deployment Settings
+deployment:
+  auto_deploy: false  # Manual approval required for production
+  wait_timer: 10      # Wait 10 minutes before deployment
+  prevent_self_review: true
+
+# Monitoring
+monitoring:
+  health_check_url: "https://your-production-domain.com/api/health"
+  uptime_monitoring: true
+  performance_monitoring: true
+  error_tracking: true
+
+# Backup Strategy
+backup:
+  database_backup: "daily"
+  file_storage_backup: "weekly"
+  retention_period: "30 days"
+  backup_verification: true

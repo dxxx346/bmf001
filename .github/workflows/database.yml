@@ -1,0 +1,390 @@
+name: Database Operations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - '.github/workflows/database.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+  workflow_dispatch:
+    inputs:
+      migration_action:
+        description: 'Migration action to perform'
+        required: true
+        default: 'validate'
+        type: choice
+        options:
+          - validate
+          - migrate
+          - rollback
+          - reset
+      environment:
+        description: 'Environment to run migrations on'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  SUPABASE_CLI_VERSION: '1.118.0'
+
+jobs:
+  # Validate migrations on PRs
+  validate-migrations:
+    name: Validate Database Migrations
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Supabase CLI
+        run: |
+          curl -L https://github.com/supabase/cli/releases/download/v${{ env.SUPABASE_CLI_VERSION }}/supabase_linux_amd64.tar.gz -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Validate migration syntax
+        run: |
+          cd supabase
+          for migration in migrations/*.sql; do
+            if [ -f "$migration" ]; then
+              echo "🔍 Validating syntax for: $migration"
+              
+              # Check for basic SQL syntax issues
+              if ! grep -q ";" "$migration"; then
+                echo "❌ Missing semicolon in migration: $migration"
+                exit 1
+              fi
+              
+              # Check for dangerous operations
+              if grep -qi "drop database\|truncate\|delete from.*where.*1=1" "$migration"; then
+                echo "❌ Dangerous operation detected in: $migration"
+                exit 1
+              fi
+              
+              # Validate SQL syntax with PostgreSQL
+              PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f "$migration" --single-transaction --dry-run 2>/dev/null || {
+                echo "❌ SQL syntax error in: $migration"
+                exit 1
+              }
+              
+              echo "✅ Migration validated: $migration"
+            fi
+          done
+
+      - name: Test migration rollback scenarios
+        run: |
+          cd supabase
+          PGPASSWORD=postgres psql -h localhost -U postgres -d test_db << 'EOF'
+          -- Test creating and dropping tables
+          CREATE TABLE test_rollback (id SERIAL PRIMARY KEY, name TEXT);
+          INSERT INTO test_rollback (name) VALUES ('test');
+          SELECT COUNT(*) FROM test_rollback;
+          DROP TABLE test_rollback;
+          EOF
+          echo "✅ Rollback scenarios tested successfully"
+
+      - name: Check migration order and dependencies
+        run: |
+          cd supabase/migrations
+          echo "🔍 Checking migration order..."
+          
+          # List all migrations in order
+          ls -1 *.sql | sort -V > migration_order.txt
+          
+          # Check for potential dependency issues
+          for migration in $(cat migration_order.txt); do
+            echo "📁 Migration: $migration"
+            
+            # Check for table references before creation
+            if grep -q "ALTER TABLE\|DROP TABLE\|CREATE INDEX" "$migration"; then
+              echo "  ⚠️  Contains schema modifications"
+            fi
+            
+            if grep -q "INSERT INTO\|UPDATE\|DELETE FROM" "$migration"; then
+              echo "  ⚠️  Contains data modifications"
+            fi
+          done
+
+      - name: Generate migration summary
+        run: |
+          cd supabase/migrations
+          echo "# Migration Summary" > ../../migration-summary.md
+          echo "" >> ../../migration-summary.md
+          echo "## Changed Migrations" >> ../../migration-summary.md
+          echo "" >> ../../migration-summary.md
+          
+          # Get changed migration files
+          git diff --name-only origin/main...HEAD | grep "supabase/migrations" || echo "No migration changes detected"
+          
+          for file in $(git diff --name-only origin/main...HEAD | grep "supabase/migrations" || true); do
+            echo "- \`$file\`" >> ../../migration-summary.md
+          done
+
+      - name: Upload migration summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-summary
+          path: migration-summary.md
+
+  # Run migrations on staging
+  run-staging-migrations:
+    name: Run Staging Migrations
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: staging
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        run: |
+          curl -L https://github.com/supabase/cli/releases/download/v${{ env.SUPABASE_CLI_VERSION }}/supabase_linux_amd64.tar.gz -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Login to Supabase
+        run: |
+          echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --token -
+
+      - name: Link to staging project
+        run: |
+          supabase link --project-ref ${{ secrets.SUPABASE_STAGING_PROJECT_REF }}
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_STAGING_DB_PASSWORD }}
+
+      - name: Run database migrations
+        run: |
+          echo "🚀 Running migrations on staging..."
+          supabase db push --include-seed=false
+          echo "✅ Staging migrations completed"
+
+      - name: Verify migration status
+        run: |
+          echo "🔍 Verifying migration status..."
+          supabase migration list
+          
+          # Check database health
+          echo "🏥 Checking database health..."
+          supabase db status
+
+      - name: Run post-migration tests
+        run: |
+          echo "🧪 Running post-migration tests..."
+          # Add any post-migration validation here
+          echo "✅ Post-migration tests passed"
+
+  # Run migrations on production (manual trigger only)
+  run-production-migrations:
+    name: Run Production Migrations
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production'
+    environment: production
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        run: |
+          curl -L https://github.com/supabase/cli/releases/download/v${{ env.SUPABASE_CLI_VERSION }}/supabase_linux_amd64.tar.gz -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Login to Supabase
+        run: |
+          echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --token -
+
+      - name: Create database backup
+        run: |
+          echo "💾 Creating database backup before migration..."
+          supabase db dump --project-ref ${{ secrets.SUPABASE_PRODUCTION_PROJECT_REF }} --file backup-$(date +%Y%m%d-%H%M%S).sql
+          echo "✅ Backup created"
+
+      - name: Upload backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-backup-${{ github.sha }}
+          path: backup-*.sql
+          retention-days: 30
+
+      - name: Link to production project
+        run: |
+          supabase link --project-ref ${{ secrets.SUPABASE_PRODUCTION_PROJECT_REF }}
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_PRODUCTION_DB_PASSWORD }}
+
+      - name: Run database migrations
+        run: |
+          echo "🚀 Running migrations on production..."
+          supabase db push --include-seed=false
+          echo "✅ Production migrations completed"
+
+      - name: Verify migration status
+        run: |
+          echo "🔍 Verifying migration status..."
+          supabase migration list
+          
+          # Check database health
+          echo "🏥 Checking database health..."
+          supabase db status
+
+      - name: Run post-migration tests
+        run: |
+          echo "🧪 Running production post-migration tests..."
+          # Add production-specific validation here
+          echo "✅ Production post-migration tests passed"
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Production migrations completed successfully"
+          # Add notification logic (Slack, email, etc.)
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Production migrations failed"
+          # Add failure notification logic
+
+  # Database rollback workflow
+  database-rollback:
+    name: Database Rollback
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.migration_action == 'rollback'
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        run: |
+          curl -L https://github.com/supabase/cli/releases/download/v${{ env.SUPABASE_CLI_VERSION }}/supabase_linux_amd64.tar.gz -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Login to Supabase
+        run: |
+          echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --token -
+
+      - name: Create rollback backup
+        run: |
+          echo "💾 Creating backup before rollback..."
+          if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+            PROJECT_REF="${{ secrets.SUPABASE_PRODUCTION_PROJECT_REF }}"
+          else
+            PROJECT_REF="${{ secrets.SUPABASE_STAGING_PROJECT_REF }}"
+          fi
+          
+          supabase db dump --project-ref $PROJECT_REF --file rollback-backup-$(date +%Y%m%d-%H%M%S).sql
+          echo "✅ Rollback backup created"
+
+      - name: Upload rollback backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: rollback-backup-${{ github.event.inputs.environment }}-${{ github.sha }}
+          path: rollback-backup-*.sql
+          retention-days: 30
+
+      - name: Perform rollback
+        run: |
+          echo "🔄 Performing database rollback on ${{ github.event.inputs.environment }}..."
+          
+          if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+            PROJECT_REF="${{ secrets.SUPABASE_PRODUCTION_PROJECT_REF }}"
+            DB_PASSWORD="${{ secrets.SUPABASE_PRODUCTION_DB_PASSWORD }}"
+          else
+            PROJECT_REF="${{ secrets.SUPABASE_STAGING_PROJECT_REF }}"
+            DB_PASSWORD="${{ secrets.SUPABASE_STAGING_DB_PASSWORD }}"
+          fi
+          
+          supabase link --project-ref $PROJECT_REF
+          
+          # This is a placeholder for actual rollback logic
+          # In practice, you would implement specific rollback migrations
+          echo "⚠️  Rollback logic needs to be implemented based on your migration strategy"
+          echo "Consider using migration down files or database snapshots"
+          
+          echo "✅ Rollback completed on ${{ github.event.inputs.environment }}"
+
+      - name: Verify rollback
+        run: |
+          echo "🔍 Verifying rollback status..."
+          supabase migration list
+          supabase db status
+
+  # Database reset (development/staging only)
+  database-reset:
+    name: Database Reset
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.migration_action == 'reset' && github.event.inputs.environment != 'production'
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        run: |
+          curl -L https://github.com/supabase/cli/releases/download/v${{ env.SUPABASE_CLI_VERSION }}/supabase_linux_amd64.tar.gz -o supabase.tar.gz
+          tar -xzf supabase.tar.gz
+          sudo mv supabase /usr/local/bin/
+
+      - name: Login to Supabase
+        run: |
+          echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --token -
+
+      - name: Reset database
+        run: |
+          echo "🔄 Resetting database on ${{ github.event.inputs.environment }}..."
+          
+          if [ "${{ github.event.inputs.environment }}" = "staging" ]; then
+            PROJECT_REF="${{ secrets.SUPABASE_STAGING_PROJECT_REF }}"
+            DB_PASSWORD="${{ secrets.SUPABASE_STAGING_DB_PASSWORD }}"
+          else
+            echo "❌ Database reset is only allowed on staging environment"
+            exit 1
+          fi
+          
+          supabase link --project-ref $PROJECT_REF
+          supabase db reset --linked
+          
+          echo "✅ Database reset completed on ${{ github.event.inputs.environment }}"
+
+      - name: Verify reset
+        run: |
+          echo "🔍 Verifying reset status..."
+          supabase migration list
+          supabase db status

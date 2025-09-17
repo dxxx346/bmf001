@@ -1,0 +1,98 @@
+/* Admin Dashboard Styles */
+
+/* Grid for user activity heatmap */
+.grid-cols-25 {
+  grid-template-columns: repeat(25, minmax(0, 1fr));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-cols-25 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Custom scrollbar for error logs */
+.max-h-32::-webkit-scrollbar {
+  width: 4px;
+}
+
+.max-h-32::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.max-h-32::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.max-h-32::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Hover effects for cards */
+.bg-white:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Status indicators */
+.status-indicator {
+  position: relative;
+}
+
+.status-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-indicator.online::before {
+  background-color: #10b981;
+}
+
+.status-indicator.offline::before {
+  background-color: #ef4444;
+}
+
+/* Heatmap tooltip styles */
+.heatmap-cell {
+  position: relative;
+  cursor: pointer;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+/* Responsive text sizes */
+@media (max-width: 640px) {
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-lg {
+    font-size: 1.125rem;
+  }
+}

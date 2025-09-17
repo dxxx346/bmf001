@@ -1,0 +1,81 @@
+# Staging Environment Configuration
+# This file documents the required environment variables and secrets for staging
+
+environment: staging
+
+# Required Secrets (to be configured in GitHub Settings > Secrets and variables > Actions)
+required_secrets:
+  # Supabase Configuration
+  - NEXT_PUBLIC_SUPABASE_URL: "Your Supabase staging project URL"
+  - NEXT_PUBLIC_SUPABASE_ANON_KEY: "Your Supabase staging anonymous key"
+  - SUPABASE_SERVICE_ROLE_KEY: "Your Supabase staging service role key"
+  - SUPABASE_ACCESS_TOKEN: "Supabase CLI access token"
+  - SUPABASE_STAGING_PROJECT_REF: "Staging project reference ID"
+  - SUPABASE_STAGING_DB_PASSWORD: "Staging database password"
+  
+  # Vercel Deployment (same as production)
+  - VERCEL_TOKEN: "Vercel deployment token"
+  - VERCEL_ORG_ID: "Vercel organization ID"
+  - VERCEL_PROJECT_ID: "Vercel project ID"
+  
+  # Payment Providers (test keys)
+  - STRIPE_SECRET_KEY: "Stripe test secret key"
+  - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "Stripe test publishable key"
+  - STRIPE_WEBHOOK_SECRET: "Stripe test webhook secret"
+  - YOOKASSA_SHOP_ID: "YooKassa test shop ID"
+  - YOOKASSA_SECRET_KEY: "YooKassa test secret key"
+  
+  # Redis
+  - REDIS_URL: "Redis staging connection URL"
+  
+  # Monitoring & Analytics
+  - SENTRY_DSN: "Sentry DSN for staging"
+  - SENTRY_ORG: "Sentry organization"
+  - SENTRY_PROJECT: "Sentry staging project"
+  
+  # Deployment URLs
+  - STAGING_URL: "https://staging.your-domain.com"
+  - PREVIEW_URL: "https://preview.your-domain.com"
+
+# Environment Variables
+environment_variables:
+  NODE_ENV: "staging"
+  ENVIRONMENT: "staging"
+  LOG_LEVEL: "debug"
+
+# Protection Rules (less strict than production)
+protection_rules:
+  required_reviewers: 1
+  require_codeowner_reviews: false
+  required_status_checks:
+    - "CI/CD Pipeline / quality-checks"
+    - "CI/CD Pipeline / security-scan"
+  enforce_admins: false
+  allow_force_pushes: true
+  allow_deletions: true
+
+# Deployment Settings
+deployment:
+  auto_deploy: true   # Auto-deploy on develop branch
+  wait_timer: 0       # No wait time for staging
+  prevent_self_review: false
+
+# Monitoring
+monitoring:
+  health_check_url: "https://staging.your-domain.com/api/health"
+  uptime_monitoring: true
+  performance_monitoring: true
+  error_tracking: true
+
+# Testing
+testing:
+  smoke_tests: true
+  integration_tests: true
+  performance_tests: true
+  security_tests: true
+
+# Data Management
+data_management:
+  use_test_data: true
+  data_seeding: true
+  data_reset_allowed: true

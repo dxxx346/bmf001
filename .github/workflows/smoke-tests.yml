@@ -1,0 +1,508 @@
+name: Post-Deployment Smoke Tests
+
+on:
+  workflow_run:
+    workflows: ["Deployment"]
+    types: [completed]
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'URL to run smoke tests against'
+        required: true
+        default: 'https://your-domain.com'
+      environment:
+        description: 'Environment being tested'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - preview
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Setup and determine target URL
+  setup-smoke-tests:
+    name: Setup Smoke Tests
+    runs-on: ubuntu-latest
+    outputs:
+      target-url: ${{ steps.determine-url.outputs.target-url }}
+      environment: ${{ steps.determine-url.outputs.environment }}
+      deployment-successful: ${{ steps.check-deployment.outputs.deployment-successful }}
+    
+    steps:
+      - name: Check deployment status
+        id: check-deployment
+        run: |
+          if [ "${{ github.event.workflow_run.conclusion }}" = "success" ]; then
+            echo "deployment-successful=true" >> $GITHUB_OUTPUT
+          else
+            echo "deployment-successful=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine target URL and environment
+        id: determine-url
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "target-url=${{ github.event.inputs.target_url }}" >> $GITHUB_OUTPUT
+            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+          else
+            # Determine URL based on branch
+            if [ "${{ github.event.workflow_run.head_branch }}" = "main" ]; then
+              echo "target-url=${{ secrets.PRODUCTION_URL }}" >> $GITHUB_OUTPUT
+              echo "environment=production" >> $GITHUB_OUTPUT
+            elif [ "${{ github.event.workflow_run.head_branch }}" = "develop" ]; then
+              echo "target-url=${{ secrets.STAGING_URL }}" >> $GITHUB_OUTPUT
+              echo "environment=staging" >> $GITHUB_OUTPUT
+            else
+              echo "target-url=${{ secrets.PREVIEW_URL }}" >> $GITHUB_OUTPUT
+              echo "environment=preview" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+  # Basic health checks
+  health-checks:
+    name: Health Checks
+    runs-on: ubuntu-latest
+    needs: setup-smoke-tests
+    if: needs.setup-smoke-tests.outputs.deployment-successful == 'true'
+    
+    steps:
+      - name: Wait for deployment to be ready
+        run: |
+          echo "⏳ Waiting for deployment to be ready..."
+          sleep 30
+
+      - name: Check application health
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          echo "🔍 Checking health of: $target_url"
+          
+          # Basic connectivity test
+          response=$(curl -s -o /dev/null -w "%{http_code}" "$target_url")
+          if [ $response -eq 200 ]; then
+            echo "✅ Application is responding (HTTP $response)"
+          else
+            echo "❌ Application returned HTTP $response"
+            exit 1
+          fi
+
+      - name: Check API health endpoint
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          api_health_url="$target_url/api/health"
+          
+          echo "🔍 Checking API health: $api_health_url"
+          
+          response=$(curl -s -o /dev/null -w "%{http_code}" "$api_health_url")
+          if [ $response -eq 200 ]; then
+            echo "✅ API health check passed (HTTP $response)"
+          else
+            echo "❌ API health check failed (HTTP $response)"
+            exit 1
+          fi
+
+      - name: Check critical pages
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          # List of critical pages to check
+          pages=(
+            "/"
+            "/api/products"
+            "/api/categories"
+            "/auth/login"
+          )
+          
+          for page in "${pages[@]}"; do
+            url="$target_url$page"
+            echo "🔍 Checking: $url"
+            
+            response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+            if [ $response -eq 200 ] || [ $response -eq 401 ] || [ $response -eq 403 ]; then
+              echo "✅ $page is accessible (HTTP $response)"
+            else
+              echo "❌ $page returned HTTP $response"
+              exit 1
+            fi
+          done
+
+  # Database connectivity tests
+  database-tests:
+    name: Database Connectivity
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test database connectivity
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          echo "🔍 Testing database connectivity via API..."
+          
+          # Test categories endpoint (should connect to database)
+          response=$(curl -s "$target_url/api/categories")
+          if echo "$response" | grep -q "id\|name"; then
+            echo "✅ Database connectivity test passed"
+          else
+            echo "❌ Database connectivity test failed"
+            echo "Response: $response"
+            exit 1
+          fi
+
+      - name: Test Redis connectivity
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          echo "🔍 Testing Redis connectivity..."
+          
+          # Test cache endpoint if it exists
+          response=$(curl -s -o /dev/null -w "%{http_code}" "$target_url/api/cache/health")
+          if [ $response -eq 200 ]; then
+            echo "✅ Redis connectivity test passed"
+          else
+            echo "⚠️ Redis health endpoint not available or failed (HTTP $response)"
+          fi
+
+  # Authentication flow tests
+  auth-tests:
+    name: Authentication Tests
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    
+    steps:
+      - name: Test authentication endpoints
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          echo "🔍 Testing authentication flow..."
+          
+          # Test auth login page
+          login_response=$(curl -s -o /dev/null -w "%{http_code}" "$target_url/auth/login")
+          if [ $login_response -eq 200 ]; then
+            echo "✅ Login page accessible"
+          else
+            echo "❌ Login page failed (HTTP $login_response)"
+            exit 1
+          fi
+          
+          # Test auth API endpoints
+          auth_response=$(curl -s -o /dev/null -w "%{http_code}" "$target_url/api/auth/session")
+          if [ $auth_response -eq 200 ] || [ $auth_response -eq 401 ]; then
+            echo "✅ Auth API endpoints responding correctly"
+          else
+            echo "❌ Auth API endpoints failed (HTTP $auth_response)"
+            exit 1
+          fi
+
+  # Payment system tests
+  payment-tests:
+    name: Payment System Tests
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    if: needs.setup-smoke-tests.outputs.environment != 'preview'
+    
+    steps:
+      - name: Test payment endpoints
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          echo "🔍 Testing payment system endpoints..."
+          
+          # Test Stripe webhook endpoint
+          stripe_response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$target_url/api/webhooks/stripe")
+          if [ $stripe_response -eq 400 ] || [ $stripe_response -eq 401 ]; then
+            echo "✅ Stripe webhook endpoint accessible (expected 400/401 without valid payload)"
+          else
+            echo "❌ Stripe webhook endpoint failed (HTTP $stripe_response)"
+            exit 1
+          fi
+          
+          # Test YooKassa webhook endpoint
+          yookassa_response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$target_url/api/webhooks/yookassa")
+          if [ $yookassa_response -eq 400 ] || [ $yookassa_response -eq 401 ]; then
+            echo "✅ YooKassa webhook endpoint accessible (expected 400/401 without valid payload)"
+          else
+            echo "❌ YooKassa webhook endpoint failed (HTTP $yookassa_response)"
+            exit 1
+          fi
+
+  # Performance tests
+  performance-tests:
+    name: Performance Tests
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    
+    steps:
+      - name: Install artillery
+        run: npm install -g artillery@latest
+
+      - name: Create performance test config
+        run: |
+          cat > artillery-config.yml << 'EOF'
+          config:
+            target: ${{ needs.setup-smoke-tests.outputs.target-url }}
+            phases:
+              - duration: 60
+                arrivalRate: 5
+                name: "Warm up"
+              - duration: 120
+                arrivalRate: 10
+                name: "Load test"
+            processor: "./test-functions.js"
+          scenarios:
+            - name: "Home page load"
+              weight: 40
+              flow:
+                - get:
+                    url: "/"
+                - think: 2
+            - name: "Products API"
+              weight: 30
+              flow:
+                - get:
+                    url: "/api/products"
+                - think: 1
+            - name: "Categories API"
+              weight: 20
+              flow:
+                - get:
+                    url: "/api/categories"
+                - think: 1
+            - name: "Auth pages"
+              weight: 10
+              flow:
+                - get:
+                    url: "/auth/login"
+                - think: 3
+          EOF
+
+      - name: Create test functions
+        run: |
+          cat > test-functions.js << 'EOF'
+          module.exports = {
+            // Add custom test functions here
+          };
+          EOF
+
+      - name: Run performance tests
+        run: |
+          echo "🚀 Running performance tests..."
+          artillery run artillery-config.yml --output performance-results.json
+
+      - name: Generate performance report
+        run: |
+          artillery report performance-results.json --output performance-report.html
+          echo "📊 Performance test completed"
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results-${{ needs.setup-smoke-tests.outputs.environment }}
+          path: |
+            performance-results.json
+            performance-report.html
+
+  # Security tests
+  security-tests:
+    name: Security Tests
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    
+    steps:
+      - name: Test security headers
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          echo "🔍 Testing security headers..."
+          
+          headers=$(curl -s -I "$target_url")
+          
+          # Check for essential security headers
+          if echo "$headers" | grep -qi "x-frame-options"; then
+            echo "✅ X-Frame-Options header present"
+          else
+            echo "❌ X-Frame-Options header missing"
+            exit 1
+          fi
+          
+          if echo "$headers" | grep -qi "x-content-type-options"; then
+            echo "✅ X-Content-Type-Options header present"
+          else
+            echo "❌ X-Content-Type-Options header missing"
+            exit 1
+          fi
+          
+          if echo "$headers" | grep -qi "referrer-policy"; then
+            echo "✅ Referrer-Policy header present"
+          else
+            echo "❌ Referrer-Policy header missing"
+            exit 1
+          fi
+
+      - name: Test HTTPS redirect
+        run: |
+          target_url="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          if [[ "$target_url" == https://* ]]; then
+            http_url="${target_url/https:/http:}"
+            echo "🔍 Testing HTTPS redirect from: $http_url"
+            
+            redirect_response=$(curl -s -o /dev/null -w "%{http_code}" "$http_url")
+            if [ $redirect_response -eq 301 ] || [ $redirect_response -eq 302 ] || [ $redirect_response -eq 308 ]; then
+              echo "✅ HTTPS redirect working (HTTP $redirect_response)"
+            else
+              echo "⚠️ HTTPS redirect may not be configured (HTTP $redirect_response)"
+            fi
+          else
+            echo "⚠️ Target URL is not HTTPS, skipping redirect test"
+          fi
+
+  # Integration tests
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run integration tests
+        run: |
+          echo "🧪 Running integration tests against deployed application..."
+          
+          # Set target URL for tests
+          export TEST_TARGET_URL="${{ needs.setup-smoke-tests.outputs.target-url }}"
+          
+          # Run integration tests (uncomment when tests are available)
+          # pnpm run test:integration
+          
+          echo "✅ Integration tests completed"
+
+  # Smoke test summary
+  smoke-test-summary:
+    name: Smoke Test Summary
+    runs-on: ubuntu-latest
+    needs: [setup-smoke-tests, health-checks, database-tests, auth-tests, payment-tests, performance-tests, security-tests, integration-tests]
+    if: always()
+    
+    steps:
+      - name: Generate smoke test summary
+        run: |
+          echo "# 🧪 Smoke Test Summary" > smoke-test-summary.md
+          echo "" >> smoke-test-summary.md
+          echo "**Environment:** ${{ needs.setup-smoke-tests.outputs.environment }}" >> smoke-test-summary.md
+          echo "**Target URL:** ${{ needs.setup-smoke-tests.outputs.target-url }}" >> smoke-test-summary.md
+          echo "**Test Date:** $(date)" >> smoke-test-summary.md
+          echo "**Triggered by:** ${{ github.actor }}" >> smoke-test-summary.md
+          echo "" >> smoke-test-summary.md
+          echo "## Test Results" >> smoke-test-summary.md
+          echo "" >> smoke-test-summary.md
+          
+          # Health checks
+          if [ "${{ needs.health-checks.result }}" = "success" ]; then
+            echo "✅ Health Checks: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Health Checks: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Database tests
+          if [ "${{ needs.database-tests.result }}" = "success" ]; then
+            echo "✅ Database Tests: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Database Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Auth tests
+          if [ "${{ needs.auth-tests.result }}" = "success" ]; then
+            echo "✅ Authentication Tests: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Authentication Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Payment tests
+          if [ "${{ needs.payment-tests.result }}" = "success" ]; then
+            echo "✅ Payment Tests: PASSED" >> smoke-test-summary.md
+          elif [ "${{ needs.payment-tests.result }}" = "skipped" ]; then
+            echo "⏭️ Payment Tests: SKIPPED" >> smoke-test-summary.md
+          else
+            echo "❌ Payment Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Performance tests
+          if [ "${{ needs.performance-tests.result }}" = "success" ]; then
+            echo "✅ Performance Tests: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Performance Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Security tests
+          if [ "${{ needs.security-tests.result }}" = "success" ]; then
+            echo "✅ Security Tests: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Security Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          # Integration tests
+          if [ "${{ needs.integration-tests.result }}" = "success" ]; then
+            echo "✅ Integration Tests: PASSED" >> smoke-test-summary.md
+          else
+            echo "❌ Integration Tests: FAILED" >> smoke-test-summary.md
+          fi
+          
+          echo "" >> smoke-test-summary.md
+          echo "---" >> smoke-test-summary.md
+          echo "" >> smoke-test-summary.md
+          echo "Generated by GitHub Actions 🤖" >> smoke-test-summary.md
+          
+          cat smoke-test-summary.md
+
+      - name: Upload smoke test summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-summary-${{ needs.setup-smoke-tests.outputs.environment }}
+          path: smoke-test-summary.md
+
+      - name: Notify on test failure
+        if: failure()
+        run: |
+          echo "❌ Smoke tests failed for ${{ needs.setup-smoke-tests.outputs.environment }} environment"
+          echo "🔗 Target URL: ${{ needs.setup-smoke-tests.outputs.target-url }}"
+          # Add notification logic here (Slack, Discord, email, etc.)

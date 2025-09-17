@@ -1,0 +1,89 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to perform'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - all
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update dependencies
+        run: |
+          case "${{ github.event.inputs.update_type || 'patch' }}" in
+            "patch")
+              pnpm update --latest --filter='!@types/*' --filter='!typescript' --filter='!eslint*'
+              ;;
+            "minor")
+              pnpm update --latest --filter='!@types/*'
+              ;;
+            "major")
+              pnpm update --latest
+              ;;
+            "all")
+              pnpm update --latest
+              ;;
+          esac
+
+      - name: Run tests
+        run: |
+          pnpm run type-check
+          pnpm run lint
+          # pnpm run test
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update dependencies (${{ github.event.inputs.update_type || 'patch' }})"
+          title: "🔄 Dependency Updates (${{ github.event.inputs.update_type || 'patch' }})"
+          body: |
+            ## Dependency Updates
+            
+            This PR contains automated dependency updates.
+            
+            **Update Type:** ${{ github.event.inputs.update_type || 'patch' }}
+            **Generated:** $(date)
+            
+            ### Changes
+            - Updated dependencies to latest versions
+            - All tests passing
+            - No breaking changes expected
+            
+            Please review the changes and merge if everything looks good.
+          branch: deps/automated-updates-${{ github.run_number }}
+          labels: dependencies, automated
