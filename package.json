@@ -41,7 +41,15 @@
     "test:load:stress": "k6 run tests/load/stress-test.js",
     "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "test:ci": "npm run test:coverage && npm run test:e2e",
-    "test:setup": "tsx tests/setup/test-setup.ts"
+    "test:setup": "tsx tests/setup/test-setup.ts",
+    "performance-comparison": "tsx src/scripts/performance-comparison.ts",
+    "deploy-optimizations": "node scripts/deploy-optimizations.js",
+    "analyze": "ANALYZE=true npm run build",
+    "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server npm run build",
+    "analyze:client": "ANALYZE=true BUNDLE_ANALYZE=client npm run build",
+    "bundle:size": "npm run build && npx bundlesize",
+    "optimize:images": "node scripts/optimize-images.js",
+    "optimize:bundle": "npm run analyze && npm run optimize:images"
   },
   "dependencies": {
     "@clickhouse/client": "^1.0.0",
@@ -76,6 +84,8 @@
     "bullmq": "^5.58.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dataloader": "^2.2.3",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
     "firebase-admin": "^12.7.0",
     "framer-motion": "^12.23.13",
@@ -111,6 +121,7 @@
     "@eslint/eslintrc": "^3",
     "@faker-js/faker": "^9.9.0",
     "@jest/globals": "^29.7.0",
+    "@next/bundle-analyzer": "^15.5.3",
     "@playwright/test": "^1.47.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.4.8",
@@ -145,7 +156,8 @@
     "ts-jest": "^29.4.2",
     "tsx": "^4.20.5",
     "typescript": "^5",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

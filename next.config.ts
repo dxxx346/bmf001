@@ -1,5 +1,11 @@
 import type { NextConfig } from 'next';
 
+// Bundle analyzer configuration
+import bundleAnalyzer from '@next/bundle-analyzer';
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig: NextConfig = {
   // Security headers
   async headers() {
@@ -119,8 +125,8 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Webpack configuration for security
-  webpack: (config, { isServer }) => {
+  // Webpack configuration for bundle optimization
+  webpack: async (config, { isServer, dev }) => {
     // Security improvements
     config.resolve.fallback = {
       ...config.resolve.fallback,
@@ -140,6 +146,96 @@ const nextConfig: NextConfig = {
       util: false,
     };
 
+    // Bundle optimization
+    if (!dev) {
+      // Optimize chunks for better caching
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          minSize: 20000,
+          maxSize: 244000,
+          cacheGroups: {
+            // Vendor chunk for stable third-party libraries
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              priority: 10,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // React chunk
+            react: {
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              name: 'react',
+              priority: 20,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // UI libraries chunk
+            ui: {
+              test: /[\\/]node_modules[\\/](@radix-ui|@headlessui|framer-motion|lucide-react)[\\/]/,
+              name: 'ui-libs',
+              priority: 15,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // Analytics and monitoring
+            analytics: {
+              test: /[\\/]node_modules[\\/](@tanstack|react-query|analytics)[\\/]/,
+              name: 'analytics',
+              priority: 12,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // Payment libraries
+            payments: {
+              test: /[\\/]node_modules[\\/](@stripe|stripe)[\\/]/,
+              name: 'payments',
+              priority: 12,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // Common utilities
+            utils: {
+              test: /[\\/]node_modules[\\/](date-fns|lodash|nanoid|clsx|class-variance-authority)[\\/]/,
+              name: 'utils',
+              priority: 8,
+              reuseExistingChunk: true,
+              chunks: 'all',
+            },
+            // Default chunk for remaining modules
+            default: {
+              minChunks: 2,
+              priority: -10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+        // Minimize bundle size
+        minimize: true,
+        // Enable module concatenation
+        concatenateModules: true,
+        // Remove unused exports
+        usedExports: true,
+        // Enable side effects optimization
+        sideEffects: false,
+      };
+
+      // Tree shaking optimization
+      config.optimization.providedExports = true;
+      config.optimization.innerGraph = true;
+      
+      // Remove moment.js locales to reduce bundle size
+      const webpack = await import('webpack');
+      config.plugins.push(
+        new webpack.default.IgnorePlugin({
+          resourceRegExp: /^\.\/locale$/,
+          contextRegExp: /moment$/,
+        })
+      );
+    }
+
     // Exclude server-side modules from client bundle
     if (!isServer) {
       config.externals = config.externals || [];
@@ -148,8 +244,18 @@ const nextConfig: NextConfig = {
         winston: 'commonjs winston',
         'pg-connection-string': 'commonjs pg-connection-string',
         pgpass: 'commonjs pgpass',
+        ioredis: 'commonjs ioredis',
+        bullmq: 'commonjs bullmq',
       });
     }
+
+    // Optimize imports
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Replace heavy libraries with lighter alternatives
+      'moment': 'date-fns',
+      'lodash': 'lodash-es',
+    };
 
     return config;
   },
@@ -260,4 +366,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Export with bundle analyzer
+export default withBundleAnalyzer(nextConfig);

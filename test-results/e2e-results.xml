@@ -1,0 +1,618 @@
+<testsuites id="" name="" tests="147" failures="0" skipped="147" errors="0" time="0.4842070000000001">
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="chromium" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="chromium" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="firefox" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="firefox" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="webkit" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="webkit" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Mobile Chrome" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Mobile Chrome" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Mobile Safari" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Mobile Safari" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Microsoft Edge" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Microsoft Edge" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Google Chrome" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Authentication Flow › should allow user registration and login" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle login with invalid credentials" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should allow logout" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should redirect unauthenticated users from protected pages" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication Flow › should handle password reset flow" classname="auth.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="purchase-flow.spec.ts" timestamp="2025-09-18T10:41:24.853Z" hostname="Google Chrome" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="Complete Purchase Flow › Complete purchase flow with Stripe payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with YooKassa payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Complete purchase flow with CoinGate crypto payment" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test refund request flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test download limits and expiry" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test cart functionality with multiple products" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test invalid discount code handling" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Complete Purchase Flow › Test favorites functionality" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Complete mobile purchase flow" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mobile Purchase Flow › Mobile responsive navigation" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in chromium" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in firefox" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Cross-Browser Purchase Flow › Purchase flow in webkit" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Performance › Page load performance during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle payment failures gracefully" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Purchase Flow Error Handling › Handle network failures during checkout" classname="purchase-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

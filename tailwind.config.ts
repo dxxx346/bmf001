@@ -5,7 +5,33 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/hooks/**/*.{js,ts,jsx,tsx}',
+    './src/lib/**/*.{js,ts,jsx,tsx}',
   ],
+  // Optimize for production builds
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  // Remove unused styles in production
+  purge: {
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      './src/**/*.{js,ts,jsx,tsx,mdx}',
+      './public/**/*.html',
+    ],
+    options: {
+      safelist: [
+        // Keep dynamic classes that might be generated
+        /^bg-(red|green|blue|yellow|purple|pink|indigo)-(50|100|500|600|700)$/,
+        /^text-(red|green|blue|yellow|purple|pink|indigo)-(600|700|800)$/,
+        /^border-(red|green|blue|yellow|purple|pink|indigo)-(200|300|500)$/,
+        // Keep animation classes
+        /^animate-/,
+        // Keep responsive classes that might be conditionally applied
+        /^(sm|md|lg|xl|2xl):/,
+      ],
+    },
+  },
   theme: {
     extend: {
       colors: {

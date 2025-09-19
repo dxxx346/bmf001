@@ -647,6 +647,40 @@ export class ProductService {
       logger.info('Searching products', { filters: request.filters, userId: request.user_id });
 
       const { filters } = request;
+      
+      // Use secure RPC function for search with text filtering
+      if (filters.query) {
+        const { data, error, count } = await this.supabase
+          .rpc('search_products', {
+            search_query: filters.query || '',
+            category_id: filters.category_id || null,
+            min_price: filters.min_price || null,
+            max_price: filters.max_price || null,
+            sort_by: filters.sort_by || 'created_at',
+            sort_order: filters.sort_order || 'desc',
+            limit_count: filters.limit || 20,
+            offset_count: ((filters.page || 1) - 1) * (filters.limit || 20)
+          });
+
+        if (error) throw error;
+
+        return {
+          products: data || [],
+          total: count || 0,
+          page: filters.page || 1,
+          limit: filters.limit || 20,
+          total_pages: Math.ceil((count || 0) / (filters.limit || 20)),
+          filters_applied: filters,
+          facets: {
+            categories: [],
+            price_ranges: [],
+            ratings: [],
+            tags: [],
+          },
+        };
+      }
+
+      // For non-search queries, use regular filtering
       let query = this.supabase
         .from('products')
         .select(`
@@ -656,10 +690,7 @@ export class ProductService {
           stats:product_stats(*)
         `, { count: 'exact' });
 
-      // Apply filters
-      if (filters.query) {
-        query = query.or(`title.ilike.%${filters.query}%,description.ilike.%${filters.query}%`);
-      }
+      // Apply filters safely without string interpolation
 
       if (filters.category_id) {
         query = query.eq('category_id', filters.category_id);

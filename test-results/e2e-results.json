@@ -1,0 +1,3167 @@
+{
+  "config": {
+    "configFile": "/Users/admin/bmf001/bmf001/playwright.config.ts",
+    "rootDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/Users/admin/bmf001/bmf001/tests/e2e/global-setup.ts",
+    "globalTeardown": "/Users/admin/bmf001/bmf001/tests/e2e/global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/e2e-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/e2e-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Microsoft Edge",
+        "name": "Microsoft Edge",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/admin/bmf001/bmf001/test-results/e2e-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Google Chrome",
+        "name": "Google Chrome",
+        "testDir": "/Users/admin/bmf001/bmf001/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 4,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "auth.spec.ts",
+      "file": "auth.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication Flow",
+          "file": "auth.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-5515cbb7d75994fc494f",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-b2357261459030fcf67e",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-e9e90231e381c1ae096a",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-2c11929bb7f0a566f05e",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-77191ea14b0f9441dfa4",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-45001dec4c88bf5f7472",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-113815ccf386111c710c",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-02ac7559c291eecbc499",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-f0f9f551ae66504bffcd",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-db90337615ab319d9c01",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-b2ccec61021e52414a55",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-ff006c75ec2572e1e9f5",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-c46e1c85ea0c8d166075",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-9ab5b28c0a37f9cbbe6f",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-e0faba1b8365ae4132da",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-646a50ee3909c3ef35f2",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-4a516c626ef656876f2f",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-3205885ac9748327b5b8",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-f866cbdbd660e5cddb5b",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-254b75b3e03ac18da274",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-6fe49b43234c95fe6f6b",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-115e928cd5234c48cf64",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-729d7da9e1176cb105ca",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-2c7883f6a634fe37cf24",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-5ae345df009089220722",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-2c3083710a1d704c5e76",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-32746b693ee4b8ec4259",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-a975ddf93ac2a661eb90",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-284fde5f12d5d94a4826",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-1f5ce86a674a2f55e57f",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            },
+            {
+              "title": "should allow user registration and login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-8e24e0e0de63e3766906",
+              "file": "auth.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "should handle login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-2117405e994332831fa4",
+              "file": "auth.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "should allow logout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-55ff459880c1d11f802a",
+              "file": "auth.spec.ts",
+              "line": 61,
+              "column": 7
+            },
+            {
+              "title": "should redirect unauthenticated users from protected pages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-7d1e312e30b824e62d69",
+              "file": "auth.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-b79a705e7cc8ae8c944a",
+              "file": "auth.spec.ts",
+              "line": 86,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "purchase-flow.spec.ts",
+      "file": "purchase-flow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Complete Purchase Flow",
+          "file": "purchase-flow.spec.ts",
+          "line": 410,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-451852a6c7095b0ec606",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-273f585f4501e3626295",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-37efc3bd9a492611d2fe",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-80996704cfbc02fadbcd",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-694f27328e16c2a3d580",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-36dff64e3f9dcc705143",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-092370d07b80fee5e457",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-3c39db86689075970dbd",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-8b06d3fba70a9ddb75ed",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-da35088835c4a20b8370",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-04db8d61a8de8e53dadc",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-780e5072360461dc6f1c",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-32a28913c1c84ed86ae9",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5c67f0e8240723116716",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-9abcee7e4f3f3242eef6",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-1a88fa8542782237bac5",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-be6426f421ea099316fa",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-df5acf68adaf6ea7b1a8",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-a3149f817eeaed97a115",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-1c9a7f2afb223ee4489c",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-59f6422849c58d6012de",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-40d43a68982aeb5f1fad",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-d885eff5d1e84f3d6872",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-8acff23ebe8791511c7f",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-0d90dd73bc823d7114f0",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-af5bb07193f474dfdc53",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-e442e369aab14a7696eb",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-dc9d69de71def607ebe6",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-0d00938c783685b53d94",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-2afffcdf3100d450bf1f",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-96c1bb636ac005c43be4",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-20802b2e40d904051ce0",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f73c81cc2f998db5e083",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c98e5daf7f4a6e32f4b4",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-07389f8097aab67c1652",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-8f2993539299a04e0969",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-0651e404ba7eacc4b406",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-306d002d3ef01f343c91",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-2b3e1d87682967d8d0e9",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-dec7410168c1b0d7019d",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c34a4c499bf060c3ff1b",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5716efc802a07db65ac5",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-32513000a74deb021438",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-08220383b9044d56bca2",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-4a22dbf2aa3d198963fd",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-ea248d9c45c6464e4353",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-85cdd0010be5c81ddfcc",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-a3225092841a6a34dd2a",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with Stripe payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f5fcf676f4de5207c73e",
+              "file": "purchase-flow.spec.ts",
+              "line": 459,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with YooKassa payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-0536afb85cefea730510",
+              "file": "purchase-flow.spec.ts",
+              "line": 541,
+              "column": 7
+            },
+            {
+              "title": "Complete purchase flow with CoinGate crypto payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-41739ef382a2a2b24194",
+              "file": "purchase-flow.spec.ts",
+              "line": 570,
+              "column": 7
+            },
+            {
+              "title": "Test refund request flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-e95b4cd0780947014fc5",
+              "file": "purchase-flow.spec.ts",
+              "line": 599,
+              "column": 7
+            },
+            {
+              "title": "Test download limits and expiry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-65007c1b0095290e2f4a",
+              "file": "purchase-flow.spec.ts",
+              "line": 630,
+              "column": 7
+            },
+            {
+              "title": "Test cart functionality with multiple products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-215f988011060d395732",
+              "file": "purchase-flow.spec.ts",
+              "line": 662,
+              "column": 7
+            },
+            {
+              "title": "Test invalid discount code handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-b869317cd9f2744a55ca",
+              "file": "purchase-flow.spec.ts",
+              "line": 684,
+              "column": 7
+            },
+            {
+              "title": "Test favorites functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5f22f62bdec834fdba55",
+              "file": "purchase-flow.spec.ts",
+              "line": 698,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Mobile Purchase Flow",
+          "file": "purchase-flow.spec.ts",
+          "line": 715,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-67c585755946fec73907",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-563d38760fbe568d591a",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-1d71dcfac74363b9a82f",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f204f98270c577547877",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-8691102ca8752471afa2",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c13b9bfba1ab3c37ddce",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-829ab31ab3394f054446",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c72a2996c84487c48d05",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-25425c87b58df1f8736b",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-aa29971d6c25b022380c",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f69e6f5f097f8106f529",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-703a71e166d6950cf4c0",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            },
+            {
+              "title": "Complete mobile purchase flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-35988490774c1f7ab688",
+              "file": "purchase-flow.spec.ts",
+              "line": 718,
+              "column": 7
+            },
+            {
+              "title": "Mobile responsive navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-38d2888660e50927e0d2",
+              "file": "purchase-flow.spec.ts",
+              "line": 758,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Cross-Browser Purchase Flow",
+          "file": "purchase-flow.spec.ts",
+          "line": 778,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-b1564b412edddff794fb",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f7ceab976fdf053a5e80",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-1983fde56690846c8785",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-e0d79f67d85dc84c04db",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-3c55c4d7ef9c00329465",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-16d2eef0a03c50120227",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-4f4ad24f505ceba95d8d",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-993bd423eff67eebd7c8",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-6e7c6505a62930576afd",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-ccbc606cb5247493e2b2",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-a24b5e9523bcf34a8029",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-03ae949182beeeb51bc9",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-11afcbf13a7edd6d74f1",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-e6c6fed13cc5827b19ec",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5c5baee963f8caed7f30",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-0a20118d4f80ef2e9f96",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-adfa60843ba451363896",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-953ef387f837f38e294e",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in chromium",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-4fd334cae1fe8a51a0e5",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in firefox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5a596a3e741bc0de9946",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            },
+            {
+              "title": "Purchase flow in webkit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-8bcff0da468fbf9b8e98",
+              "file": "purchase-flow.spec.ts",
+              "line": 780,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "Purchase Flow Performance",
+          "file": "purchase-flow.spec.ts",
+          "line": 817,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5dbf71b497b247e46f34",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-184e152fb88e28ac941d",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-92804efb9bb48ed62581",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c1fb622ab3656bfbd924",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-3432de105aaae61a170d",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-5e2e265b5382dc723e27",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            },
+            {
+              "title": "Page load performance during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-97f55e9b26c839f87c46",
+              "file": "purchase-flow.spec.ts",
+              "line": 818,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Purchase Flow Error Handling",
+          "file": "purchase-flow.spec.ts",
+          "line": 857,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-753ac00e9ec2389c56ca",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-9131f0bb01a38a9334b5",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-9ec80e010aa8ccf36feb",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-828c8e54b5813c3561ef",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-f551b742ef66e3180834",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-361f1b3a6acb936b89cb",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-bd2b8d0ce63526751509",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c3aa8d7038cf9ac48d2e",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-bde22558ee6124db3771",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-cb3f98baf35f45df8112",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-c967f723389ca10e5a26",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Microsoft Edge",
+                  "projectName": "Microsoft Edge",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-867e93aba24b5b6a98a0",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            },
+            {
+              "title": "Handle payment failures gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-9dea53145d4ead697bea",
+              "file": "purchase-flow.spec.ts",
+              "line": 858,
+              "column": 7
+            },
+            {
+              "title": "Handle network failures during checkout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Google Chrome",
+                  "projectName": "Google Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3bbd2960824dc85c4f67-50d30c01d77c790589f6",
+              "file": "purchase-flow.spec.ts",
+              "line": 908,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-18T10:41:24.369Z",
+    "duration": 484.2070000000001,
+    "expected": 0,
+    "skipped": 147,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

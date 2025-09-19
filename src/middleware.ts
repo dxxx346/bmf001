@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { Database, User, UserInsert } from '@/types/database';
+import { applyRateLimit } from '@/lib/rate-limit-utils';
+import { apiVersionMiddleware } from '@/middleware/api-version.middleware';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next({
@@ -10,6 +12,21 @@ export async function middleware(request: NextRequest) {
   });
 
   try {
+    // Apply API versioning middleware first for API routes
+    if (request.nextUrl.pathname.startsWith('/api/')) {
+      const versionResponse = apiVersionMiddleware(request);
+      if (versionResponse) {
+        return versionResponse;
+      }
+    }
+
+    // Apply rate limiting for API routes
+    if (request.nextUrl.pathname.startsWith('/api/')) {
+      const rateLimitResponse = await applyRateLimit(request);
+      if (rateLimitResponse) {
+        return rateLimitResponse;
+      }
+    }
     // Create Supabase client for middleware
     const supabase = createMiddlewareClient<Database>({ req: request, res: response });
 

@@ -17,6 +17,7 @@ import {
   ReviewAnalytics
 } from '@/types/review';
 import Redis from 'ioredis';
+import { safeJsonParse } from '@/lib/security-validators';
 
 const redis = new Redis(process.env.REDIS_URL || '');
 
@@ -254,7 +255,10 @@ export class ReviewService {
     const cached = await redis.get(cacheKey);
     
     if (cached) {
-      return JSON.parse(cached);
+      const parsed = safeJsonParse(cached);
+      if (parsed) {
+        return parsed as ProductReviewSummary;
+      }
     }
 
     const { data: reviews } = await this.supabase

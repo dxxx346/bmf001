@@ -1,167 +1,34 @@
-import DOMPurify from 'isomorphic-dompurify';
+/**
+ * Security Utilities
+ * Quick-access functions for common security operations
+ */
+
+import { NextRequest } from 'next/server';
+import { securityAuditService } from '@/services/security-audit.service';
+import { validateInput, sanitizeHtml, safeJsonParse } from './security-validators';
 import { z } from 'zod';
 import crypto from 'crypto';
 
 /**
- * Input sanitization utilities for XSS prevention
+ * Generate a secure API key
  */
-
-// XSS prevention through input sanitization
-export function sanitizeInput(input: string): string {
-  if (typeof input !== 'string') {
-    return '';
-  }
-  
-  // Basic HTML sanitization using DOMPurify
-  return DOMPurify.sanitize(input, {
-    ALLOWED_TAGS: [], // No HTML tags allowed
-    ALLOWED_ATTR: [], // No attributes allowed
-    KEEP_CONTENT: true, // Keep text content
-  });
-}
-
-// More permissive sanitization for rich text content
-export function sanitizeRichText(input: string): string {
-  if (typeof input !== 'string') {
-    return '';
-  }
-  
-  return DOMPurify.sanitize(input, {
-    ALLOWED_TAGS: [
-      'p', 'br', 'strong', 'em', 'u', 'ol', 'ul', 'li', 
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'
-    ],
-    ALLOWED_ATTR: ['class'],
-    FORBID_ATTR: ['style', 'onerror', 'onload'],
-    FORBID_TAGS: ['script', 'object', 'embed', 'link', 'style'],
-  });
-}
-
-// URL sanitization
-export function sanitizeUrl(url: string): string {
-  if (typeof url !== 'string') {
-    return '';
-  }
-  
-  try {
-    const parsed = new URL(url);
-    // Only allow http and https protocols
-    if (!['http:', 'https:'].includes(parsed.protocol)) {
-      return '';
-    }
-    return parsed.toString();
-  } catch {
-    return '';
-  }
-}
-
-// File name sanitization
-export function sanitizeFileName(fileName: string): string {
-  if (typeof fileName !== 'string') {
-    return '';
-  }
-  
-  // Remove path traversal attempts and dangerous characters
-  return fileName
-    .replace(/[\/\\]/g, '') // Remove path separators
-    .replace(/\.\./g, '') // Remove parent directory references
-    .replace(/[<>:"|?*]/g, '') // Remove Windows forbidden characters
-    .replace(/[\x00-\x1f\x80-\x9f]/g, '') // Remove control characters
-    .replace(/^\.+/, '') // Remove leading dots
-    .trim()
-    .substring(0, 255); // Limit length
-}
-
-/**
- * SQL injection prevention utilities
- */
-
-// Validate UUID format to prevent SQL injection in UUID parameters
-export const uuidSchema = z.string().uuid('Invalid UUID format');
-
-// Validate and sanitize database identifiers (table names, column names)
-export function validateIdentifier(identifier: string): boolean {
-  // Only allow alphanumeric characters and underscores
-  const identifierRegex = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
-  return identifierRegex.test(identifier) && identifier.length <= 63;
-}
-
-// Safe SQL LIKE pattern escaping
-export function escapeLikePattern(pattern: string): string {
-  return pattern
-    .replace(/\\/g, '\\\\') // Escape backslashes
-    .replace(/%/g, '\\%') // Escape percent signs
-    .replace(/_/g, '\\_'); // Escape underscores
-}
-
-/**
- * General validation utilities
- */
-
-// Email validation with additional security checks
-export function validateEmail(email: string): boolean {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  
-  if (!emailRegex.test(email)) {
-    return false;
-  }
-  
-  // Additional checks
-  if (email.length > 254) return false; // RFC 5321 limit
-  if (email.includes('..')) return false; // Consecutive dots
-  if (email.startsWith('.') || email.endsWith('.')) return false; // Leading/trailing dots
-  
-  return true;
-}
-
-// Phone number validation and sanitization
-export function sanitizePhoneNumber(phone: string): string {
-  if (typeof phone !== 'string') {
-    return '';
-  }
-  
-  // Remove all non-digit characters except + at the beginning
-  const cleaned = phone.replace(/[^\d+]/g, '');
-  
-  // Ensure + is only at the beginning
-  if (cleaned.includes('+')) {
-    const parts = cleaned.split('+');
-    if (parts.length === 2 && parts[0] === '') {
-      return '+' + parts[1];
-    }
-    return parts.join('').replace(/\+/g, '');
-  }
-  
-  return cleaned;
-}
-
-/**
- * Cryptographic utilities
- */
-
-// Generate secure random tokens
-export function generateSecureToken(length: number = 32): string {
-  return crypto.randomBytes(length).toString('hex');
-}
-
-// Generate API key
 export function generateApiKey(): string {
   const prefix = 'pk_';
-  const randomPart = crypto.randomBytes(24).toString('base64url');
-  return prefix + randomPart;
+  const randomBytes = crypto.randomBytes(32);
+  const keyBody = randomBytes.toString('base64url');
+  return `${prefix}${keyBody}`;
 }
 
-// Hash API key for storage
+/**
+ * Hash an API key for secure storage
+ */
 export function hashApiKey(apiKey: string): string {
   return crypto.createHash('sha256').update(apiKey).digest('hex');
 }
 
-// Generate salt for password hashing
-export function generateSalt(): string {
-  return crypto.randomBytes(16).toString('hex');
-}
-
-// Secure comparison function to prevent timing attacks
+/**
+ * Securely compare two strings (constant-time comparison)
+ */
 export function secureCompare(a: string, b: string): boolean {
   if (a.length !== b.length) {
     return false;
@@ -176,140 +43,366 @@ export function secureCompare(a: string, b: string): boolean {
 }
 
 /**
- * Content validation utilities
+ * Sanitize input to prevent injection attacks
  */
+export function sanitizeInput(input: string): string {
+  return sanitizeHtml(input);
+}
 
-// Validate JSON input safely
-export function validateJsonInput(input: unknown): boolean {
-  try {
-    if (typeof input === 'string') {
-      JSON.parse(input);
-    }
-    return true;
-  } catch {
+/**
+ * Validate request origin
+ */
+export function validateOrigin(request: NextRequest, allowedOrigins: string[]): boolean {
+  const origin = request.headers.get('origin');
+  if (!origin) return false;
+  
+  return allowedOrigins.includes(origin) || allowedOrigins.includes('*');
+}
+
+/**
+ * Validate user agent to detect suspicious requests
+ */
+export function validateUserAgent(userAgent: string): boolean {
+  if (!userAgent || userAgent.trim() === '') {
     return false;
   }
-}
-
-// Validate and sanitize search queries
-export function sanitizeSearchQuery(query: string): string {
-  if (typeof query !== 'string') {
-    return '';
-  }
   
-  return query
-    .trim()
-    .replace(/[<>]/g, '') // Remove potential HTML
-    .replace(/['";]/g, '') // Remove SQL injection characters
-    .replace(/\s+/g, ' ') // Normalize whitespace
-    .substring(0, 100); // Limit length
-}
-
-// Validate file upload metadata
-export function validateFileMetadata(metadata: {
-  name: string;
-  size: number;
-  type: string;
-}): { valid: boolean; errors: string[] } {
-  const errors: string[] = [];
-  
-  // Validate file name
-  const sanitizedName = sanitizeFileName(metadata.name);
-  if (!sanitizedName || sanitizedName !== metadata.name) {
-    errors.push('Invalid file name');
-  }
-  
-  // Validate file size (max 100MB)
-  if (metadata.size > 100 * 1024 * 1024) {
-    errors.push('File size too large');
-  }
-  
-  // Validate MIME type
-  const allowedTypes = [
-    'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-    'application/pdf', 'text/plain', 'application/zip',
-    'application/json', 'video/mp4', 'video/webm',
-    'audio/mpeg', 'audio/wav'
+  // Block known bad user agents
+  const blockedPatterns = [
+    /bot/i,
+    /crawler/i,
+    /spider/i,
+    /scraper/i,
+    /curl/i,
+    /wget/i,
+    /python-requests/i,
+    /postman/i,
   ];
   
-  if (!allowedTypes.includes(metadata.type)) {
-    errors.push('File type not allowed');
-  }
-  
+  return !blockedPatterns.some(pattern => pattern.test(userAgent));
+}
+
+/**
+ * Extract client information from request
+ */
+export function getClientInfo(request: NextRequest) {
   return {
-    valid: errors.length === 0,
-    errors
+    ipAddress: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+               request.headers.get('x-real-ip') || 
+               request.headers.get('cf-connecting-ip') || 
+               'unknown',
+    userAgent: request.headers.get('user-agent') || 'unknown',
+    userId: request.headers.get('x-user-id') || undefined,
   };
 }
 
 /**
- * Request validation utilities
+ * Quick security audit logging
  */
-
-// Validate request origin for CORS
-export function validateOrigin(origin: string | null, allowedOrigins: string[]): boolean {
-  if (!origin) return true; // Same-origin requests don't have origin header
+export async function logSecurityEvent(
+  request: NextRequest,
+  event: {
+    action: string;
+    resource_type: string;
+    resource_id?: string;
+    risk_level: 'low' | 'medium' | 'high' | 'critical';
+    metadata?: Record<string, unknown>;
+  }
+) {
+  const { ipAddress, userAgent, userId } = getClientInfo(request);
   
-  return allowedOrigins.some(allowed => {
-    if (allowed === '*') return true;
-    if (allowed.startsWith('*.')) {
-      const domain = allowed.substring(2);
-      return origin.endsWith('.' + domain) || origin === domain;
-    }
-    return origin === allowed;
+  await securityAuditService.logSecurityEvent({
+    user_id: userId,
+    event_type: 'suspicious_activity',
+    action: event.action,
+    resource_type: event.resource_type,
+    resource_id: event.resource_id,
+    ip_address: ipAddress,
+    user_agent: userAgent,
+    risk_level: event.risk_level,
+    metadata: event.metadata,
   });
 }
 
-// Validate User-Agent to detect potential bots/scrapers
-export function validateUserAgent(userAgent: string | null): { valid: boolean; isBot: boolean } {
-  if (!userAgent) {
-    return { valid: false, isBot: true };
+/**
+ * Validate request input with security logging
+ */
+export async function validateRequestInput<T>(
+  request: NextRequest,
+  schema: z.ZodSchema<T>,
+  input: unknown,
+  resourceType: string
+): Promise<{
+  success: boolean;
+  data?: T;
+  errors?: string[];
+}> {
+  const validation = validateInput(schema, input);
+  
+  if (!validation.success) {
+    await logSecurityEvent(request, {
+      action: 'invalid_input',
+      resource_type: resourceType,
+      risk_level: 'medium',
+      metadata: {
+        errors: validation.errors,
+        input_preview: JSON.stringify(input).slice(0, 200),
+      },
+    });
   }
   
-  const botPatterns = [
-    /bot/i, /crawler/i, /spider/i, /scraper/i,
-    /curl/i, /wget/i, /python/i, /go-http/i,
-    /postman/i, /insomnia/i
+  return validation;
+}
+
+/**
+ * Safe JSON parsing with security logging
+ */
+export async function safeJsonParseWithLogging<T>(
+  request: NextRequest,
+  jsonString: string,
+  schema?: z.ZodSchema<T>,
+  resourceType = 'json_data'
+): Promise<T | null> {
+  try {
+    const result = safeJsonParse(jsonString, schema);
+    
+    if (!result && jsonString.trim()) {
+      await logSecurityEvent(request, {
+        action: 'invalid_json_parse',
+        resource_type: resourceType,
+        risk_level: 'low',
+        metadata: {
+          json_preview: jsonString.slice(0, 100),
+        },
+      });
+    }
+    
+    return result;
+  } catch (error) {
+    await logSecurityEvent(request, {
+      action: 'json_parse_error',
+      resource_type: resourceType,
+      risk_level: 'medium',
+      metadata: {
+        error: (error as Error).message,
+        json_preview: jsonString.slice(0, 100),
+      },
+    });
+    
+    return null;
+  }
+}
+
+/**
+ * Detect and log potential SQL injection attempts
+ */
+export async function detectSQLInjection(
+  request: NextRequest,
+  input: string,
+  fieldName: string
+): Promise<boolean> {
+  const sqlPatterns = [
+    /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION)\b)/gi,
+    /(\b(OR|AND)\s+\d+\s*=\s*\d+)/gi,
+    /(;|\s)+(DROP|DELETE|INSERT|UPDATE|CREATE|ALTER|EXEC)\s+/gi,
+    /UNION\s+(ALL\s+)?SELECT/gi,
+    /\/\*[\s\S]*?\*\//gi, // SQL comments
+    /--[\s\S]*$/gm, // SQL line comments
   ];
+
+  const hasSQLInjection = sqlPatterns.some(pattern => pattern.test(input));
   
-  const isBot = botPatterns.some(pattern => pattern.test(userAgent));
+  if (hasSQLInjection) {
+    await securityAuditService.logSQLInjectionAttempt(
+      input,
+      fieldName,
+      request.headers.get('x-user-id') || undefined,
+      request.headers.get('x-forwarded-for') || 'unknown',
+      request.headers.get('user-agent') || 'unknown'
+    );
+  
+  return true;
+}
+
+  return false;
+}
+
+/**
+ * Detect and log potential XSS attempts
+ */
+export async function detectXSS(
+  request: NextRequest,
+  input: string,
+  fieldName: string
+): Promise<boolean> {
+  const xssPatterns = [
+    /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
+    /<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi,
+    /javascript:/gi,
+    /vbscript:/gi,
+    /onload\s*=/gi,
+    /onerror\s*=/gi,
+    /onclick\s*=/gi,
+    /onmouseover\s*=/gi,
+    /<img[^>]+src[^>]*>.*onerror/gi,
+    /eval\s*\(/gi,
+    /expression\s*\(/gi,
+  ];
+
+  const hasXSS = xssPatterns.some(pattern => pattern.test(input));
+  
+  if (hasXSS) {
+    await securityAuditService.logXSSAttempt(
+      input,
+      fieldName,
+      request.headers.get('x-user-id') || undefined,
+      request.headers.get('x-forwarded-for') || 'unknown',
+      request.headers.get('user-agent') || 'unknown'
+    );
+    
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * Comprehensive input security check
+ */
+export async function securityCheckInput(
+  request: NextRequest,
+  input: string,
+  fieldName: string
+): Promise<{
+  safe: boolean;
+  sanitized: string;
+  threats: string[];
+}> {
+  const threats: string[] = [];
+  
+  // Check for SQL injection
+  if (await detectSQLInjection(request, input, fieldName)) {
+    threats.push('sql_injection');
+  }
+  
+  // Check for XSS
+  if (await detectXSS(request, input, fieldName)) {
+    threats.push('xss');
+  }
+  
+  // Sanitize the input
+  const sanitized = sanitizeHtml(input);
   
   return {
-    valid: userAgent.length > 0 && userAgent.length < 1000,
-    isBot
+    safe: threats.length === 0,
+    sanitized,
+    threats,
   };
 }
 
-// Rate limiting key generation
-export function generateRateLimitKey(
-  ip: string,
-  userId?: string,
-  endpoint?: string
-): string {
-  const parts = [ip];
-  if (userId) parts.push(userId);
-  if (endpoint) parts.push(endpoint);
+/**
+ * Rate limit check with security logging
+ */
+export async function checkRateLimit(
+  request: NextRequest,
+  endpoint: string,
+  limit: number
+): Promise<boolean> {
+  // This would integrate with your rate limiting middleware
+  // For now, we'll just log if needed
   
-  return parts.join(':');
+  const { ipAddress, userAgent, userId } = getClientInfo(request);
+  
+  // Placeholder for rate limit check
+  const isRateLimited = false; // Replace with actual rate limit check
+  
+  if (isRateLimited) {
+    await securityAuditService.logRateLimitViolation(
+      endpoint,
+      limit,
+      userId,
+      ipAddress,
+      userAgent
+    );
+  }
+  
+  return !isRateLimited;
 }
 
-// Input length validation
-export function validateInputLength(
-  input: string,
-  minLength: number = 0,
-  maxLength: number = 1000
-): { valid: boolean; error?: string } {
-  if (typeof input !== 'string') {
-    return { valid: false, error: 'Input must be a string' };
-  }
-  
-  if (input.length < minLength) {
-    return { valid: false, error: `Input must be at least ${minLength} characters` };
-  }
-  
-  if (input.length > maxLength) {
-    return { valid: false, error: `Input must be no more than ${maxLength} characters` };
-  }
-  
-  return { valid: true };
+/**
+ * Check if IP should be blocked
+ */
+export async function shouldBlockRequest(request: NextRequest): Promise<boolean> {
+  const { ipAddress } = getClientInfo(request);
+  return await securityAuditService.shouldBlockIP(ipAddress);
+}
+
+/**
+ * Security middleware wrapper
+ */
+export function withSecurity<T extends any[], R>(
+  handler: (...args: T) => Promise<R>,
+  options: {
+    checkRateLimit?: boolean;
+    checkIPBlock?: boolean;
+    logAccess?: boolean;
+    resourceType?: string;
+  } = {}
+) {
+  return async (...args: T): Promise<R> => {
+    const request = args[0] as NextRequest;
+    
+    // Check IP blocking
+    if (options.checkIPBlock && await shouldBlockRequest(request)) {
+      throw new Error('IP blocked due to suspicious activity');
+    }
+    
+    // Log access if requested
+    if (options.logAccess) {
+      await logSecurityEvent(request, {
+        action: 'api_access',
+        resource_type: options.resourceType || 'api',
+        risk_level: 'low',
+      });
+    }
+    
+    return handler(...args);
+  };
+}
+
+/**
+ * Security headers for responses
+ */
+export const SECURITY_HEADERS = {
+  'Content-Security-Policy': [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https: blob:",
+    "media-src 'self' https:",
+    "connect-src 'self' https://api.stripe.com wss:",
+    "frame-src https://js.stripe.com https://hooks.stripe.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    "upgrade-insecure-requests",
+  ].join('; '),
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+} as const;
+
+/**
+ * Apply security headers to response
+ */
+export function addSecurityHeaders(response: Response): Response {
+  Object.entries(SECURITY_HEADERS).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
+  return response;
 }
